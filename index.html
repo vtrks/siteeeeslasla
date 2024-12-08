@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tempo Decorrido</title>
+    <title>MOR</title>
     <style>
         body {
             background-color: #FFC0CB; /* Fundo rosa claro */
@@ -22,9 +22,10 @@
     </style>
 </head>
 <body>
-    <h1>Se passaram:</h1>
+    <h1>Uma história que começou há:</h1>
     <div id="meses" class="time-unit"></div>
     <div id="dias" class="time-unit"></div>
+    <div id="horas" class="time-unit"></div>
     <div id="minutos" class="time-unit"></div>
     <div id="segundos" class="time-unit"></div>
 
@@ -34,24 +35,40 @@
 
         function atualizarTempo() {
             const dataAtual = new Date();
-            const diferencaMs = dataAtual - dataInicial;
+            let diferencaMs = dataAtual - dataInicial;
 
-            // Convertendo diferença
-            const segundosTotais = Math.floor(diferencaMs / 1000);
-            const minutosTotais = Math.floor(segundosTotais / 60);
-            const diasTotais = Math.floor(minutosTotais / 1440); // 1440 minutos em um dia
+            // Total de segundos
+            let segundos = Math.floor(diferencaMs / 1000);
 
-            // Cálculo de meses
+            // Calculando meses inteiros
             let meses = (dataAtual.getFullYear() - dataInicial.getFullYear()) * 12 + (dataAtual.getMonth() - dataInicial.getMonth());
             if (dataAtual.getDate() < dataInicial.getDate()) {
                 meses -= 1; // Ajuste para o dia do mês
             }
 
+            // Atualiza a data inicial para o último mês inteiro
+            const ultimoMesInteiro = new Date(dataInicial);
+            ultimoMesInteiro.setMonth(dataInicial.getMonth() + meses);
+            diferencaMs = dataAtual - ultimoMesInteiro;
+
+            // Calculando dias, horas, minutos e segundos restantes
+            const dias = Math.floor(diferencaMs / (1000 * 60 * 60 * 24));
+            diferencaMs %= 1000 * 60 * 60 * 24;
+
+            const horas = Math.floor(diferencaMs / (1000 * 60 * 60));
+            diferencaMs %= 1000 * 60 * 60;
+
+            const minutos = Math.floor(diferencaMs / (1000 * 60));
+            diferencaMs %= 1000 * 60;
+
+            segundos = Math.floor(diferencaMs / 1000);
+
             // Atualizar elementos na página
             document.getElementById('meses').innerText = `${meses} meses`;
-            document.getElementById('dias').innerText = `${diasTotais} dias`;
-            document.getElementById('minutos').innerText = `${minutosTotais} minutos`;
-            document.getElementById('segundos').innerText = `${segundosTotais} segundos`;
+            document.getElementById('dias').innerText = `${dias} dias`;
+            document.getElementById('horas').innerText = `${horas} horas`;
+            document.getElementById('minutos').innerText = `${minutos} minutos`;
+            document.getElementById('segundos').innerText = `${segundos} segundos`;
         }
 
         // Atualizar a cada segundo
