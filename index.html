@@ -79,6 +79,15 @@
         .destaque:hover {
             text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
         }
+
+        /* Estilo para o pato animado */
+        #pato {
+            position: absolute;
+            width: 100px; /* Ajuste o tamanho do pato */
+            height: auto;
+            display: none; /* Escondido inicialmente */
+            z-index: 2000;
+        }
         
     </style>
 </head>
@@ -110,6 +119,9 @@
         </div>
 
         <a id="destaque-texto" class="destaque" href="https://www.youtube.com/watch?v=7sqvbH_ONcc" target="_blank">Te amo além das palavras.</a>
+
+        !-- Pato animado -->
+        <img id="pato" src="pato.gif" alt="Pato andando">
         
     </div>
 
