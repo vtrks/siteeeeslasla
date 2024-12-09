@@ -82,9 +82,11 @@
 
         /* Estilo para o pato animado */
         #pato {
-            /*position: absolute;*/
+            position: absolute;
             width: 100px; /* Ajuste o tamanho do pato */
             height: auto;
+            display: none; /* Escondido inicialmente */
+            z-index: 2000;
         }
         
     </style>
@@ -118,9 +120,9 @@
 
         <a id="destaque-texto" class="destaque" href="https://www.youtube.com/watch?v=7sqvbH_ONcc" target="_blank">Te amo além das palavras.</a>
 
-        <div 
-            <img id="pato" src="pato.gif" alt="pato andando">
-        </div>
+
+        <img id="pato" src="pato.gif" alt="pato andando">
+
     </div>
 
     <script>
@@ -192,20 +194,28 @@
             const larguraTela = window.innerWidth;
             const alturaTela = window.innerHeight;
             const alturaMin = 50;
-            const alturaMax = alturaTela - 100;
+            const alturaMax = 600;
 
             const alturaAleatoria = Math.random() * (alturaMax - alturaMin) + alturaMin;
-            const esquerdaParaDireita = Math.random() > 0.5;
+        
+            // const esquerdaParaDireita = Math.random() > 0.5;
 
             pato.style.top = `${alturaAleatoria}px`;
-            pato.style.transform = esquerdaParaDireita ? 'scaleX(1)' : 'scaleX(-1)';
-            pato.style.left = esquerdaParaDireita ? '-100px' : `${larguraTela}px`;
-            pato.style.display = 'block';
+            //pato.style.transform = esquerdaParaDireita ? 'scaleX(1)' : 'scaleX(-1)';
+            // Começa o pato na posição inicial
+            pato.style.left = '1000px'; // Coloca o pato em 1000px
+            pato.style.display = 'block'; // Torna o pato visível
 
-            pato.style.transition = 'left 2s linear';
-            pato.style.left = esquerdaParaDireita ? `${larguraTela}px` : '-100px';
+            // Define a transição antes de mover
+            pato.style.transition = 'left 3s linear';
 
-            setTimeout(() => pato.style.display = 'none', 2000);
+            // Move o pato para 2000px após um curto intervalo
+            setTimeout(() => {
+                pato.style.left = '2000px'; // Move o pato para 2000px
+            }, 10);
+            // pato.style.left = esquerdaParaDireita ? `1000px` : '-100px';
+
+            setTimeout(() => pato.style.display = 'none', 3000);
         }
         
          // Função para exibir o conteúdo após o carregamento
@@ -227,6 +237,8 @@
         setInterval(trocarImagem, 3000);
 
         setInterval(mudarCorTexto, 350);
+
+        setInterval(animarPato, 5000)
 
         // Inicializar ao carregar a página
         atualizarTempo();
