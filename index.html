@@ -63,6 +63,16 @@
             width: 100%; /* Faz com que a imagem ocupe toda a largura do contêiner */
             height: auto; /* Mantém a proporção da imagem */
         }
+
+        #texto-variavel {
+            font-size: 1.2em;
+            margin-top: 10px;
+            color: #d88390; /* Cor padrão semelhante ao fundo */
+        }
+
+        .destaque {
+            font-weight: bold;
+        }
         
     </style>
 </head>
@@ -86,10 +96,12 @@
             <img src="imagem1.jpg" alt="Imagem 1" id="foto">
         </div>
 
-        <h1> Amor, desde que você entrou na minha vida, 
+        <div id="texto-variavel">
+            Amor, desde que você entrou na minha vida, 
             tudo ganhou mais cor e sentido. Você é o meu 
             porto seguro, minha alegria diária e o motivo 
-            do meu sorriso mais sincero. Te amo além das palavras.</h1>
+            do meu sorriso mais sincero. <span id="destaque-texto" class="destaque">Te amo além das palavras</span>.
+        </div>
         
     </div>
 
@@ -100,6 +112,10 @@
         // Lista das imagens que você quer exibir
         const imagens = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg'];
         let indiceImagem = 0; // Índice para controle de qual imagem mostrar
+
+        // Cores para o texto "cores"
+        const coresTexto = ['#FF69B4', '#FF4500', '#FFD700', '#32CD32', '#1E90FF'];
+        let indiceCor = 0;
 
         // Função para atualizar as informações de tempo
         function atualizarTempo() {
@@ -147,6 +163,12 @@
             document.getElementById('foto').src = imagens[indiceImagem];
         }
 
+        // Função para alterar a cor do texto "cores"
+        function mudarCorTexto() {
+            indiceCor = (indiceCor + 1) % coresTexto.length;
+            document.getElementById('destaque-texto').style.color = coresTexto[indiceCor];
+        }
+        
          // Função para exibir o conteúdo após o carregamento
         window.onload = function () {
             const loading = document.getElementById('loading');
