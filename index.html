@@ -90,6 +90,17 @@
             cursor: pointer;
         }
 
+        #pato2 {
+            width: 301px;
+            height: 376px;
+            position: absolute;
+            display: none; /* Inicialmente oculto */
+            top: 503px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+
         #audio-quack {
             display: none; /* Oculta o elemento de áudio */
         }
@@ -136,6 +147,9 @@
 
         <!-- Áudio da música -->
         <audio id="audio-musica" src="musica.mp3" preload="auto"></audio>
+
+        <!-- Segundo gif de pato que aparecerá quando a música tocar -->
+        <img id="pato2" src="pato2.gif" alt="Pato 2" />
 
     </div>
 
@@ -204,6 +218,7 @@
         }
 
         const pato = document.getElementById('pato');
+        const pato2 = document.getElementById('pato2');
         const audio = document.getElementById('audio-quack');
         const audioMusica = document.getElementById('audio-musica');
         let clicks = 0; // Contador de cliques
@@ -249,9 +264,14 @@
                 // Toca a música quando atingir 10 cliques
                 audioMusica.play();
                 clearInterval(intervaloPato);
+                pato2.style.display = 'block';
             }
         });
 
+
+        audioMusica.onended = function() {
+            pato2.style.display = 'none'; // Esconde o segundo pato
+        };
 
          // Função para exibir o conteúdo após o carregamento
         window.onload = function () {
