@@ -87,6 +87,11 @@
             height: auto;
             display: none; /* Escondido inicialmente */
             z-index: 2000;
+            cursor: pointer;
+        }
+
+        #audio-quack {
+            display: none; /* Oculta o elemento de áudio */
         }
         
     </style>
@@ -122,6 +127,8 @@
 
 
         <img id="pato" src="pato.gif" alt="pato andando">
+
+        <audio id="audio-quack" src="quack.mp3" preload="auto"></audio>
 
     </div>
 
@@ -189,8 +196,10 @@
             document.getElementById('destaque-texto').style.color = coresTexto[indiceCor];
         }
 
+        const pato = document.getElementById('pato');
+        const audio = document.getElementById('audio-quack');
+
         function animarPato() {
-            const pato = document.getElementById('pato');
             const larguraTela = window.innerWidth;
             const alturaTela = window.innerHeight;
             const alturaMin = 50;
@@ -218,6 +227,13 @@
             setTimeout(() => pato.style.display = 'none', 3000);
         }
         
+
+        pato.addEventListener('click', function() {
+            audio.play();
+            pato.style.display = 'none'; // Esconde o pato
+        });
+
+
          // Função para exibir o conteúdo após o carregamento
         window.onload = function () {
             const loading = document.getElementById('loading');
