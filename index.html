@@ -27,6 +27,15 @@
         #conteudo {
             display: none; /* Oculta o conteúdo até o carregamento */
         }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body.no-scroll {
+            overflow: hidden; /* Remove a rolagem */
+        }
         
         body {
             background-image: url('coracaos.gif'); 
@@ -56,10 +65,6 @@
         #imagem img {
             width: 100%; /* Faz com que a imagem ocupe toda a largura do contêiner */
             height: auto; /* Mantém a proporção da imagem */
-        }
-
-        body.no-scroll {
-            overflow: hidden; /* Remove a rolagem */
         }
         
     </style>
