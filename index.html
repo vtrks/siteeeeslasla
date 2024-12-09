@@ -93,6 +93,10 @@
         #audio-quack {
             display: none; /* Oculta o elemento de áudio */
         }
+
+        #audio-musica {
+            display: none; /* Oculta o elemento de áudio da música */
+        }
         
     </style>
 </head>
@@ -129,6 +133,9 @@
         <img id="pato" src="pato.gif" alt="pato andando">
 
         <audio id="audio-quack" src="quack.mp3" preload="auto"></audio>
+
+        <!-- Áudio da música -->
+        <audio id="audio-musica" src="musica.mp3" preload="auto"></audio>
 
     </div>
 
@@ -198,7 +205,10 @@
 
         const pato = document.getElementById('pato');
         const audio = document.getElementById('audio-quack');
-
+        const audioMusica = document.getElementById('audio-musica');
+        let clicks = 0; // Contador de cliques
+        let intervaloPato;
+        
         function animarPato() {
             const larguraTela = window.innerWidth;
             const alturaTela = window.innerHeight;
@@ -230,7 +240,16 @@
 
         pato.addEventListener('click', function() {
             audio.play();
-            pato.style.display = 'none'; // Esconde o pato
+            pato.style.display = 'none';
+            clicks++;
+
+            if (clicks >= 5) {
+                // Para de mover o pato
+                
+                // Toca a música quando atingir 10 cliques
+                audioMusica.play();
+                clearInterval(intervaloPato);
+            }
         });
 
 
@@ -254,7 +273,7 @@
 
         setInterval(mudarCorTexto, 350);
 
-        setInterval(animarPato, 5000)
+        intervaloPato = setInterval(animarPato, 5000);
 
         // Inicializar ao carregar a página
         atualizarTempo();
