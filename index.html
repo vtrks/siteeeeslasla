@@ -143,8 +143,11 @@
             setTimeout(() => {
                 loading.style.display = 'none';
                 conteudo.style.display = 'block';
-            }, 3000); // Tempo de espera para garantir que tudo foi carregado
+            }, 2500); // Tempo de espera para garantir que tudo foi carregado
         };
+
+        // Adiciona o bloqueio de rolagem ao carregar a página
+        document.body.classList.add('no-scroll');
         
         // Atualiza a cada segundo
         setInterval(atualizarTempo, 1000);
