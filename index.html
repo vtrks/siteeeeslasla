@@ -23,6 +23,12 @@
             font-size: 2em;
         }
 
+        #loading h1 {
+            color: #fff;
+            font-size: 1.5em;
+        }
+
+        /* Estilo para o conteúdo principal */
         #conteudo {
             display: none; /* Oculta o conteúdo até o carregamento */
         }
@@ -35,30 +41,27 @@
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
-            overflow: hidden; /* Remove rolagem */
+            overflow: "hidden";
         }
-
         h1 {
             color: #333;
         }
-
         .time-unit {
             font-size: 1.5em;
             margin: 10px 0;
             color: #555;
         }
-
         #imagem {
             margin-top: 30px;
-            width: 300px;
+            width: 300px; /* Ajuste o tamanho da imagem conforme necessário */
             height: auto;
+            transition: opacity 2s ease; /* Adiciona transição suave entre as trocas de imagens */
             margin-left: auto;
             margin-right: auto;
         }
-
         #imagem img {
-            width: 100%;
-            height: auto;
+            width: 100%; /* Faz com que a imagem ocupe toda a largura do contêiner */
+            height: auto; /* Mantém a proporção da imagem */
         }
 
         #texto-variavel {
@@ -69,25 +72,18 @@
 
         .destaque {
             font-weight: bold;
-            text-decoration: none;
-            transition: color 0.3s ease;
+            text-decoration: none; /* Remove sublinhado do link */
+            transition: color 0.3s ease; /* Suaviza a transição de cores */
         }
 
         .destaque:hover {
-            text-decoration: underline;
+            text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
         }
-
-        /* Estilo para o pato animado */
-        #pato {
-            position: absolute;
-            width: 100px; /* Ajuste o tamanho do pato */
-            height: auto;
-            display: none; /* Escondido inicialmente */
-            z-index: 2000;
-        }
+        
     </style>
 </head>
 <body>
+    <body>
     <!-- Tela de Loading -->
     <div id="loading">
         <h1>Carregando...</h1>
@@ -114,34 +110,41 @@
         </div>
 
         <a id="destaque-texto" class="destaque" href="https://www.youtube.com/watch?v=7sqvbH_ONcc" target="_blank">Te amo além das palavras.</a>
-
-        <!-- Pato animado -->
-        <img id="pato" src="pato.gif" alt="Pato andando">
+        
     </div>
 
     <script>
-        // Data inicial
+        // Data inicial: 13/07/2024 às 11:40
         const dataInicial = new Date('2024-07-13T11:40:00');
 
-        // Lista de imagens
-        const imagens = ['1.jpg', '2.jpg', '3.jpg'];
-        let indiceImagem = 0;
+        // Lista das imagens que você quer exibir
+        const imagens = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg'];
+        let indiceImagem = 0; // Índice para controle de qual imagem mostrar
 
         // Cores para o texto "cores"
         const coresTexto = ['#c86a78', '#b75267', '#a63a57', '#b75267', '#c86a78'];
         let indiceCor = 0;
 
+        // Função para atualizar as informações de tempo
         function atualizarTempo() {
             const dataAtual = new Date();
             let diferencaMs = dataAtual - dataInicial;
 
-            let meses = (dataAtual.getFullYear() - dataInicial.getFullYear()) * 12 + (dataAtual.getMonth() - dataInicial.getMonth());
-            if (dataAtual.getDate() < dataInicial.getDate()) meses -= 1;
+            // Total de segundos
+            let segundos = Math.floor(diferencaMs / 1000);
 
+            // Calculando meses inteiros
+            let meses = (dataAtual.getFullYear() - dataInicial.getFullYear()) * 12 + (dataAtual.getMonth() - dataInicial.getMonth());
+            if (dataAtual.getDate() < dataInicial.getDate()) {
+                meses -= 1; // Ajuste para o dia do mês
+            }
+
+            // Atualiza a data inicial para o último mês inteiro
             const ultimoMesInteiro = new Date(dataInicial);
             ultimoMesInteiro.setMonth(dataInicial.getMonth() + meses);
             diferencaMs = dataAtual - ultimoMesInteiro;
 
+            // Calculando dias, horas, minutos e segundos restantes
             const dias = Math.floor(diferencaMs / (1000 * 60 * 60 * 24));
             diferencaMs %= 1000 * 60 * 60 * 24;
 
@@ -151,8 +154,9 @@
             const minutos = Math.floor(diferencaMs / (1000 * 60));
             diferencaMs %= 1000 * 60;
 
-            const segundos = Math.floor(diferencaMs / 1000);
+            segundos = Math.floor(diferencaMs / 1000);
 
+            // Atualizar elementos na página
             document.getElementById('meses').innerText = `${meses} meses`;
             document.getElementById('dias').innerText = `${dias} dias`;
             document.getElementById('horas').innerText = `${horas} horas`;
@@ -160,46 +164,41 @@
             document.getElementById('segundos').innerText = `${segundos} segundos`;
         }
 
+        // Função para trocar as imagens a cada 3 segundos
         function trocarImagem() {
-            indiceImagem = (indiceImagem + 1) % imagens.length;
+            // Atualiza a imagem do elemento #foto
+            indiceImagem = (indiceImagem + 1) % imagens.length; // Avança no índice e volta ao início
             document.getElementById('foto').src = imagens[indiceImagem];
         }
 
+        // Função para alterar a cor do texto "cores"
         function mudarCorTexto() {
             indiceCor = (indiceCor + 1) % coresTexto.length;
             document.getElementById('destaque-texto').style.color = coresTexto[indiceCor];
         }
-
-        function animarPato() {
-            const pato = document.getElementById('pato');
-            const larguraTela = window.innerWidth;
-            const alturaTela = window.innerHeight;
-            const alturaMin = 50;
-            const alturaMax = alturaTela - 100;
-
-            const alturaAleatoria = Math.random() * (alturaMax - alturaMin) + alturaMin;
-            const esquerdaParaDireita = Math.random() > 0.5;
-
-            pato.style.top = `${alturaAleatoria}px`;
-            pato.style.transform = esquerdaParaDireita ? 'scaleX(1)' : 'scaleX(-1)';
-            pato.style.left = esquerdaParaDireita ? '-100px' : `${larguraTela}px`;
-            pato.style.display = 'block';
-
-            pato.style.transition = 'left 2s linear';
-            pato.style.left = esquerdaParaDireita ? `${larguraTela}px` : '-100px';
-
-            setTimeout(() => pato.style.display = 'none', 2000);
-        }
-
+        
+         // Função para exibir o conteúdo após o carregamento
         window.onload = function () {
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('conteudo').style.display = 'block';
-        };
+            const loading = document.getElementById('loading');
+            const conteudo = document.getElementById('conteudo');
 
+            // Após carregar completamente, exibe o conteúdo e esconde a tela de loading
+            setTimeout(() => {
+                loading.style.display = 'none';
+                conteudo.style.display = 'block';
+            }, 3000); // Tempo de espera para garantir que tudo foi carregado
+        };
+        
+        // Atualiza a cada segundo
         setInterval(atualizarTempo, 1000);
+
+        // Troca a imagem a cada 3 segundos
         setInterval(trocarImagem, 3000);
+
         setInterval(mudarCorTexto, 350);
-        setInterval(animarPato, 5000);
+
+        // Inicializar ao carregar a página
+        atualizarTempo();
     </script>
 </body>
 </html>
