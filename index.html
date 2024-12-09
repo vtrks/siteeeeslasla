@@ -72,6 +72,12 @@
 
         .destaque {
             font-weight: bold;
+            text-decoration: none; /* Remove sublinhado do link */
+            transition: color 0.3s ease; /* Suaviza a transição de cores */
+        }
+
+        .destaque:hover {
+            text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
         }
         
     </style>
@@ -103,7 +109,7 @@
             do meu sorriso mais sincero.
         </div>
 
-        <span id="destaque-texto" class="destaque">Te amo além das palavras.</span>
+        <a id="destaque-texto" class="destaque" href="https://www.youtube.com/watch?v=7sqvbH_ONcc" target="_blank">Te amo além das palavras.</a>
         
     </div>
 
