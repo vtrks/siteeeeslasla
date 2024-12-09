@@ -120,9 +120,8 @@
 
         <a id="destaque-texto" class="destaque" href="https://www.youtube.com/watch?v=7sqvbH_ONcc" target="_blank">Te amo além das palavras.</a>
 
-        !-- Pato animado -->
         <div 
-            <img id="pato" src="pato.gif">
+            <img id="pato" src="pato.gif" alt="pato andando">
         </div>
     </div>
 
@@ -188,6 +187,27 @@
         function mudarCorTexto() {
             indiceCor = (indiceCor + 1) % coresTexto.length;
             document.getElementById('destaque-texto').style.color = coresTexto[indiceCor];
+        }
+
+        function animarPato() {
+            const pato = document.getElementById('pato');
+            const larguraTela = window.innerWidth;
+            const alturaTela = window.innerHeight;
+            const alturaMin = 50;
+            const alturaMax = alturaTela - 100;
+
+            const alturaAleatoria = Math.random() * (alturaMax - alturaMin) + alturaMin;
+            const esquerdaParaDireita = Math.random() > 0.5;
+
+            pato.style.top = `${alturaAleatoria}px`;
+            pato.style.transform = esquerdaParaDireita ? 'scaleX(1)' : 'scaleX(-1)';
+            pato.style.left = esquerdaParaDireita ? '-100px' : `${larguraTela}px`;
+            pato.style.display = 'block';
+
+            pato.style.transition = 'left 2s linear';
+            pato.style.left = esquerdaParaDireita ? `${larguraTela}px` : '-100px';
+
+            setTimeout(() => pato.style.display = 'none', 2000);
         }
         
          // Função para exibir o conteúdo após o carregamento
